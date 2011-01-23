@@ -13,13 +13,13 @@ Is opensource player supporting video (for example .mp4, .mov, .f4v, .flv), audi
 
 #### Rails 3 ####
 
-* add `gem 'jw_player_helper'` into yout `Gemfile`
+* add `gem 'jw_player_helper'` into your `Gemfile`
 * add `<%= javascript_include_tag 'swfobject' %>` in your layout
 * now you can use `<%= video_player(flashvars={}, attributes={}, params={}) %>` to render JW Player
 
 #### Rails 2 ####
 
-* add `config.gem "jw_player_helper"` into yout `config/environment.rb`
+* add `config.gem "jw_player_helper"` into your `config/environment.rb`
 * add `<%= javascript_include_tag 'swfobject' %>` in your layout
 * now you can use `<%= video_player(flashvars={}, attributes={}, params={}) %>` to render JW Player
 
@@ -75,10 +75,7 @@ Gem is packed with few skins
 
         Usage: add :skin => 'name' to your flashvars. For example: <%= video_player({:file => "/video/pf2011.flv", :image => "/video/pf2011.jpg", :skin => "glow"}) %>
 
-You can find more skins [here](http://www.longtailvideo.com/addons/skins). 
+You can find more skins [here](http://www.longtailvideo.com/addons/skins).
 
 Usage: Copy downloaded zip into `RAILS_ROOT/public/swf/skins` and set `:skin => 'name without .zip extension'` flashvar
-
-
-
 
