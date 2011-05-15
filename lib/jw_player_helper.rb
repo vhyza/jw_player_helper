@@ -21,10 +21,9 @@ if defined?(Rails)
   else
     ActionView::Base.send :include, JWPlayerHelper::Helper
 
-    javascript_file = Rails.root.join("public", "javascripts", "swfobject.js")
-
     ["swfobject.js", "jwplayer.js"].each do |js|
       gem_javascript_file = gem_root.join("assets", "javascripts", js)
+      javascript_file = Rails.root.join("public", "javascripts", js)
 
       if !File.exists?(javascript_file) or javascript_file.size != gem_javascript_file.size
         puts "Copying #{js} to public/javascripts"
