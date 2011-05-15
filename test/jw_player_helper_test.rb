@@ -1,33 +1,39 @@
 require 'helper'
 
-class TestJwPlayerHelper < ActionView::TestCase
+class TestJwPlayerHelper < Test::Unit::TestCase
 
-  include JWPlayerHelper::Helper
-
-  setup do
-    @flashvars = {:file => "/path/to/video"}
+  class StubView < ActionView::Base
   end
 
-  should "be loaded" do
-    assert ActionView::Base.include?(JWPlayerHelper::Helper)
-  end
+  context "Rails application" do
+    setup do
+      @view = StubView.new
+    end
 
-  should "generate default javascript for jwplayer" do
-    video_script = video_player(@flashvars)
-    assert video_script.include?("/path/to/video")
-    assert video_script.include?("/swf/player.swf")
-    assert video_script.include?(%q{id="jw_player"})
-    assert video_script.include?("flashvars_jw_player")
-    assert video_script.include?("params_jw_player")
-    assert video_script.include?("attributes_jw_player")
-  end
+    should "load JWPlayerHelper into ActionView helpers" do
+      assert ActionView::Base.include?(JWPlayerHelper::Helper)
+      assert @view.respond_to?(:video_player)
+    end
 
-  should "generate different id and vars if is defined" do
-    video_script = video_player(@flashvars, {:id => "video_div"})
-    assert video_script.include?(%q{id="video_div"})
-    assert video_script.include?("flashvars_video_div")
-    assert video_script.include?("params_video_div")
-    assert video_script.include?("attributes_video_div")
+    should "generate swfobject javascript if configured in JWPlayerHelper::Configuration" do
+      JWPlayerHelper::Configuration.embedder "swfobject"
+      swfobject = JWPlayerHelper::Embedders::Swfobject.new :file => '/some/file'
+      JWPlayerHelper::Embedders::Swfobject.expects(:new).with(:file => '/some/file').returns(swfobject)
+      @view.video_player :file => "/some/file"
+    end
+
+    should "generate jwplayer javascript if configured JWPlayerHelper::Configuration" do
+      JWPlayerHelper::Configuration.embedder "jwplayer"
+      jwplayer = JWPlayerHelper::Embedders::Jwplayer.new :file => '/some/file'
+      JWPlayerHelper::Embedders::Jwplayer.expects(:new).with(:file => '/some/file').returns(jwplayer)
+      @view.video_player :file => "/some/file"
+    end
+
+    should "raise exceptoion when unknown embedder is set" do
+      JWPlayerHelper::Configuration.embedder "unknown"
+      assert_raise(NameError) { @view.video_player :file => "/some/file" }
+    end
+
   end
 
 end
