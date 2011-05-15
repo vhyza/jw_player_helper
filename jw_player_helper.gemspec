@@ -18,4 +18,20 @@ Gem::Specification.new do |s|
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
+  s.rdoc_options      = [ "--charset=UTF-8" ]
+
+  s.required_rubygems_version = ">= 1.3.6"
+
+  s.add_dependency "rake",        "~> 0.8.0"
+  s.add_dependency "bundler",     "~> 1.0.0"
+  s.add_dependency "yajl-ruby",   "> 0.8.0"
+  s.add_dependency "activesupport", "> 3.0.0"
+  s.add_dependency "i18n"
+
+
+  s.add_development_dependency "turn"
+  s.add_development_dependency "mocha"
+  s.add_development_dependency "shoulda"
+  s.add_development_dependency "rails"
+
 end
