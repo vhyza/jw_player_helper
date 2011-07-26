@@ -10,7 +10,7 @@ module JWPlayerHelper
     #TODO: Test it somehow
     config.after_initialize do
       if Configuration.load_with_defaults
-        default_javascripts = ActionView::Helpers::AssetTagHelper.javascript_expansions[:defaults] + [Configuration.embedder]
+        default_javascripts = ActionView::Helpers::AssetTagHelper.javascript_expansions[:defaults] + ["#{Configuration.embedder}.js?#{Time.now.to_i}"]
         ActionView::Helpers::AssetTagHelper.register_javascript_expansion :defaults => default_javascripts
       end
     end
