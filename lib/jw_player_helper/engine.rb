@@ -4,7 +4,7 @@ module JWPlayerHelper
     ActionView::Base.send :include, JWPlayerHelper::Helper
 
     initializer "static assets" do |app|
-      app.middleware.use ::ActionDispatch::Static, "#{root}/assets"
+      app.middleware.insert_before ::Rack::Lock, ::ActionDispatch::Static, "#{root}/assets"
     end
 
     #TODO: Test it somehow
