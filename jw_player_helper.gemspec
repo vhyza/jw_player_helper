@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rake"
   s.add_dependency "bundler",     ">= 1.0.0"
   s.add_dependency "yajl-ruby",   "> 0.8.0"
-  s.add_dependency "activesupport", "> 3.0.0"
+  s.add_dependency "activesupport"
   s.add_dependency "i18n"
 
 
